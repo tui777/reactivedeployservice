@@ -1,25 +1,25 @@
-function trap(height) {
-  let totalWater = 0;
-  let left = 0;
-  let right = height.length - 1;
-  let maxLeft = 0;
-  let maxRight = 0;
-  while (left < right) {
-    if (height[left] < height[right]) {
-      if (height[left] >= maxLeft) {
-        maxLeft = height[left];
-      } else {
-        totalWater += maxLeft - height[left];
+const cocktailShakerSort = (arr) => {
+  let swapped = true;
+  let start = 0;
+  let end = arr.length - 1;
+  while (swapped) {
+    swapped = false;
+    for (let i = start; i < end; i++) {
+      if (arr[i] > arr[i + 1]) {
+        [arr[i], arr[i + 1]] = [arr[i + 1], arr[i]];
+        swapped = true;
       }
-      left++;
-    } else {
-      if (height[right] >= maxRight) {
-        maxRight = height[right];
-      } else {
-        totalWater += maxRight - height[right];
-      }
-      right--;
     }
+    if (!swapped) break;
+    swapped = false;
+    end--;
+    for (let i = end - 1; i >= start; i--) {
+      if (arr[i] > arr[i + 1]) {
+        [arr[i], arr[i + 1]] = [arr[i + 1], arr[i]];
+        swapped = true;
+      }
+    }
+    start++;
   }
-  return totalWater;
-}
+  return arr;
+};
